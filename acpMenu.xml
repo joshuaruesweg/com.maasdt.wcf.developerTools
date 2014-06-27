@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/acpMenu.xsd">
+	<import>
+		<acpmenuitem name="wcf.acp.menu.link.developerTools">
+			<parent>wcf.acp.menu.link.system</parent>
+		</acpmenuitem>
+		
+		<acpmenuitem name="wcf.acp.menu.link.developerTools.databaseTables">
+			<controller><![CDATA[wcf\acp\page\DatabaseTableListPage]]></controller>
+			<parent>wcf.acp.menu.link.developerTools</parent>
+		</acpmenuitem>
+		
+		<acpmenuitem name="wcf.acp.menu.link.developerTools.languageDiff">
+			<controller><![CDATA[wcf\acp\form\LanguageDiffForm]]></controller>
+			<parent>wcf.acp.menu.link.developerTools</parent>
+		</acpmenuitem>
+	</import>
+</data>

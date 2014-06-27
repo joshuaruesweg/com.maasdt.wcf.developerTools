@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagecode="de">
+	<category name="wcf.acp.developerTools">
+		<item name="wcf.acp.developerTools.database.table"><![CDATA[Database Table]]></item>
+		<item name="wcf.acp.developerTools.database.table.column.field"><![CDATA[Column]]></item>
+		<item name="wcf.acp.developerTools.database.table.column.list"><![CDATA[Table Columns]]></item>
+		<item name="wcf.acp.developerTools.database.table.column.list.title"><![CDATA[Columns - {$tableName} - Database Tables]]></item>
+		<item name="wcf.acp.developerTools.database.table.column.type"><![CDATA[Type]]></item>
+		<item name="wcf.acp.developerTools.database.table.list"><![CDATA[Database Tables]]></item>
+		<item name="wcf.acp.developerTools.database.table.name"><![CDATA[Table]]></item>
+		<item name="wcf.acp.developerTools.database.table.row.list"><![CDATA[Rows]]></item>
+		<item name="wcf.acp.developerTools.database.table.rows"><![CDATA[Rows]]></item>
+		<item name="wcf.acp.developerTools.database.table.title"><![CDATA[{$tableName} - Database Tables]]></item>
+		
+		<item name="wcf.acp.developerTools.languageDiff"><![CDATA[Missing Language Items]]></item>
+		<item name="wcf.acp.developerTools.languageDiff.languageID1"><![CDATA[1. Language]]></item>
+		<item name="wcf.acp.developerTools.languageDiff.languageID2"><![CDATA[2. Language]]></item>
+		<item name="wcf.acp.developerTools.languageDiff.languageID2.error.sameAsLanguage1"><![CDATA[The second language has to be different from the first language.]]></item>
+		<item name="wcf.acp.developerTools.languageDiff.languageItem"><![CDATA[Language Item]]></item>
+		<item name="wcf.acp.developerTools.languageDiff.languageItems"><![CDATA[Language Items]]></item>
+		<item name="wcf.acp.developerTools.languageDiff.languages"><![CDATA[Languages]]></item>
+		<item name="wcf.acp.developerTools.languageDiff.languages.description"><![CDATA[All language items existing in the first language, but missing in the second language will be shown.]]></item>
+		<item name="wcf.acp.developerTools.languageDiff.oneLanguageOnly"><![CDATA[Only one language is installed.]]></item>
+	</category>
+	
+	<category name="wcf.acp.menu">
+		<item name="wcf.acp.menu.link.developerTools"><![CDATA[Developer Tools]]></item>
+		<item name="wcf.acp.menu.link.developerTools.databaseTables"><![CDATA[Database Tables]]></item>
+		<item name="wcf.acp.menu.link.developerTools.languageDiff"><![CDATA[Missing Language Items]]></item>
+	</category>
+</language>
