@@ -2,12 +2,14 @@
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagecode="de">
 	<category name="wcf.acp.developerTools">
 		<item name="wcf.acp.developerTools.database.table"><![CDATA[Datenbank-Tabelle]]></item>
+		<item name="wcf.acp.developerTools.database.table.cell.value.null"><![CDATA[NULL]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.field"><![CDATA[Spalte]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.list"><![CDATA[Tabellenspalten]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.list.title"><![CDATA[Spalten - {$tableName} - Datenbank-Tabellen]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.type"><![CDATA[Typ]]></item>
 		<item name="wcf.acp.developerTools.database.table.list"><![CDATA[Datenbank-Tabellen]]></item>
 		<item name="wcf.acp.developerTools.database.table.name"><![CDATA[Tabelle]]></item>
+		<item name="wcf.acp.developerTools.database.table.row.edit"><![CDATA[Datensatz bearbeiten]]></item>
 		<item name="wcf.acp.developerTools.database.table.row.list"><![CDATA[Datensätze]]></item>
 		<item name="wcf.acp.developerTools.database.table.rows"><![CDATA[Datensätze]]></item>
 		<item name="wcf.acp.developerTools.database.table.title"><![CDATA[{$tableName} - Datenbank-Tabellen]]></item>

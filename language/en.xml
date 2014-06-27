@@ -2,12 +2,14 @@
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagecode="de">
 	<category name="wcf.acp.developerTools">
 		<item name="wcf.acp.developerTools.database.table"><![CDATA[Database Table]]></item>
+		<item name="wcf.acp.developerTools.database.table.cell.value.null"><![CDATA[NULL]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.field"><![CDATA[Column]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.list"><![CDATA[Table Columns]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.list.title"><![CDATA[Columns - {$tableName} - Database Tables]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.type"><![CDATA[Type]]></item>
 		<item name="wcf.acp.developerTools.database.table.list"><![CDATA[Database Tables]]></item>
 		<item name="wcf.acp.developerTools.database.table.name"><![CDATA[Table]]></item>
+		<item name="wcf.acp.developerTools.database.table.row.edit"><![CDATA[Edit Row]]></item>
 		<item name="wcf.acp.developerTools.database.table.row.list"><![CDATA[Rows]]></item>
 		<item name="wcf.acp.developerTools.database.table.rows"><![CDATA[Rows]]></item>
 		<item name="wcf.acp.developerTools.database.table.title"><![CDATA[{$tableName} - Database Tables]]></item>

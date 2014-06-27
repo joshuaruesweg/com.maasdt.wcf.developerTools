@@ -1,27 +1,30 @@
 {include file='header' pageTitle='wcf.acp.developerTools.database.table.title'}
 
-<script data-relocate="true">
-	//<![CDATA[
-	$(function() {
-		$('.jsDatabaseTableColumnValueToggle').click(function() {
-			var $toggle = $(this);
+<script data-relocate="true" src="{@$__wcf->getPath()}acp/js/WCF.ACP.DeveloperTools.js"></script>
+{if $rows|count}
+	<script data-relocate="true">
+		//<![CDATA[
+		$(function() {
+			WCF.Language.addObject({
+				'wcf.acp.developerTools.database.table.cell.value.null': '{lang}wcf.acp.developerTools.database.table.cell.value.null{/lang}',
+				'wcf.acp.developerTools.database.table.row.edit': '{lang}wcf.acp.developerTools.database.table.row.edit{/lang}'
+			});
 			
-			var $isTruncated = $toggle.data('isTruncated');
-			if ($isTruncated === undefined) {
-				$isTruncated = true;
-			}
+			var $columns = { };
+			{foreach from=$columns item='column'}
+				$columns['{@$column[Field]}'] = { {implode from=$column key='columnKey' item='columnData'}'{@$columnKey|encodeJS}': '{@$columnData|encodeJS}'{/implode} };
+			{/foreach}
 			
-			$toggle.data('isTruncated', !$isTruncated);
-			if ($isTruncated) {
-				$toggle.text($toggle.data('value'));
-			}
-			else {
-				$toggle.text($toggle.data('truncateValue'));
-			}
+			var $rows = { };
+			{foreach from=$rows key='rowID' item='row'}
+				$rows[{@$rowID}] = { {implode from=$columns item='column'}'{@$column[Field]|encodeJS}': {if $row[$column[Field]] === null}null{else}'{$row[$column[Field]]|encodeJS}'{/if}{/implode} };
+			{/foreach}
+			
+			new WCF.ACP.DeveloperTools.DatabaseTable.RowManager('{@$tableName}', $columns, $rows);
 		});
-	});
-	//]]>
-</script>
+		//]]>
+	</script>
+{/if}
 
 <header class="boxHeadline">
 	<h1>{lang}wcf.acp.developerTools.database.table{/lang}</h1>
@@ -44,14 +47,14 @@
 {if $rows|count}
 	<div class="tabularBox tabularBoxTitle marginTop" style="overflow-x: scroll;">
 		<header>
-			<h2>{lang}wcf.acp.developerTools.database.table.column.list{/lang} <span class="badge badgeInverse">{#$rows|count}</span></h2>
+			<h2>{lang}wcf.acp.developerTools.database.table.row.list{/lang} <span class="badge badgeInverse">{#$rows|count}</span></h2>
 		</header>
 		
 		<table id="columnsTable" class="table">
 			<thead>
 				<tr>
-					{foreach from=$columns item='column'}
-						<th class="columnText column{@$column[Field]|ucfirst}{if $sortField == $column[Field]} active {@$sortOrder}{/if}"><a href="{link controller='DatabaseTable'}tableName={@$tableName}&pageNo={@$pageNo}&sortField={@$column[Field]}&sortOrder={if $sortField == $column[Field] && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{@$column[Field]}</a></th>
+					{foreach from=$columns item='column' name='columns'}
+						<th class="columnText column{@$column[Field]|ucfirst}{if $sortField == $column[Field]} active {@$sortOrder}{/if}"{if $tpl[foreach][columns][iteration] == 1} colspan="2"{/if}><a href="{link controller='DatabaseTable'}tableName={@$tableName}&pageNo={@$pageNo}&sortField={@$column[Field]}&sortOrder={if $sortField == $column[Field] && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{@$column[Field]}</a></th>
 					{/foreach}
 					
 					{event name='columnHeads'}
@@ -59,16 +62,24 @@
 			</thead>
 			
 			<tbody>
-				{foreach from=$rows item='row'}
+				{foreach from=$rows key='rowID' item='row'}
 					<tr>
+						<td class="columnIcon">
+							<span class="icon icon16 icon-pencil jsEditButton jsTooltip pointer" title="{lang}wcf.global.button.edit{/lang}" data-object-id="{@$rowID}"></span>
+							
+							{event name='rowIcons'}
+						</td>
 						{foreach from=$columns item='column'}
 							<td class="columnText column{@$column[Field]|ucfirst}">
 								{if $column[Type]|substr:-4 == 'text'}
-									{if $row[$column[Field]] != $row[$column[Field]]|truncate}
-										<span class="jsDatabaseTableColumnValueToggle pointer" data-value="{$row[$column[Field]]|encodeJS}" data-truncate-value="{$row[$column[Field]]|truncate|encodeJS}">{$row[$column[Field]]|truncate}</span>
+									{assign var='__truncatedValue' value=$row[$column[Field]]|truncate}
+									{if $row[$column[Field]] != $__truncatedValue}
+										<span class="jsDatabaseTableColumnValueToggle pointer" data-value="{$row[$column[Field]]|encodeJS}" data-truncated-value="{$__truncatedValue|encodeJS}">{$__truncatedValue}</span>
 									{else}
 										{$row[$column[Field]]}
 									{/if}
+								{elseif $row[$column[Field]] === null}
+									<em>{lang}wcf.acp.developerTools.database.table.cell.value.null{/lang}</em>
 								{else}
 									{$row[$column[Field]]}
 								{/if}
