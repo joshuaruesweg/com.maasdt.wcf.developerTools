@@ -7,6 +7,8 @@
 		<item name="wcf.acp.developerTools.database.table.column.list"><![CDATA[Table Columns]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.list.title"><![CDATA[Columns - {$tableName} - Database Tables]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.type"><![CDATA[Type]]></item>
+		<item name="wcf.acp.developerTools.database.table.columnSettings"><![CDATA[Table Column Settings]]></item>
+		<item name="wcf.acp.developerTools.database.table.columnSettings.visibleColumns"><![CDATA[Visible Table Columns]]></item>
 		<item name="wcf.acp.developerTools.database.table.list"><![CDATA[Database Tables]]></item>
 		<item name="wcf.acp.developerTools.database.table.name"><![CDATA[Table]]></item>
 		<item name="wcf.acp.developerTools.database.table.row.confirmMessage"><![CDATA[Do you really want to delete this row?]]></item>

@@ -3,6 +3,7 @@ namespace wcf\acp\page;
 use wcf\page\SortablePage;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\WCF;
+use wcf\util\ArrayUtil;
 use wcf\util\StringUtil;
 
 /**
@@ -40,6 +41,12 @@ class DatabaseTablePage extends SortablePage {
 	public $tableName = '';
 	
 	/**
+	 * list of visible columns
+	 * @var	array<string>
+	 */
+	public $visibleColumns = array();
+	
+	/**
 	 * @see	\wcf\page\IPage::assignVariables()
 	 */
 	public function assignVariables() {
@@ -48,7 +55,8 @@ class DatabaseTablePage extends SortablePage {
 		WCF::getTPL()->assign(array(
 			'columns' => $this->columns,
 			'rows' => $this->rows,
-			'tableName' => $this->tableName
+			'tableName' => $this->tableName,
+			'visibleColumns' => $this->visibleColumns
 		));
 	}
 	
@@ -128,6 +136,19 @@ class DatabaseTablePage extends SortablePage {
 			$this->defaultSortField = $primaryColumn;
 		}
 		
+		foreach ($this->visibleColumns as $index => $column) {
+			if (!in_array($column, $this->validSortFields)) {
+				unset($this->visibleColumns[$index]);
+			}
+		}
+		
+		if (empty($this->visibleColumns)) {
+			$this->visibleColumns = $this->validSortFields;
+		}
+		else if (!in_array(reset($this->validSortFields), $this->visibleColumns)) {
+			$this->visibleColumns[] = reset($this->validSortFields);
+		}
+		
 		parent::readData();
 	}
 	
@@ -138,5 +159,6 @@ class DatabaseTablePage extends SortablePage {
 		parent::readParameters();
 		
 		if (isset($_REQUEST['tableName'])) $this->tableName = StringUtil::trim($_REQUEST['tableName']);
+		if (isset($_REQUEST['columns']) && is_array($_REQUEST['columns'])) $this->visibleColumns = ArrayUtil::trim($_REQUEST['columns']);
 	}
 }

@@ -7,6 +7,8 @@
 		<item name="wcf.acp.developerTools.database.table.column.list"><![CDATA[Tabellenspalten]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.list.title"><![CDATA[Spalten - {$tableName} - Datenbank-Tabellen]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.type"><![CDATA[Typ]]></item>
+		<item name="wcf.acp.developerTools.database.table.columnSettings"><![CDATA[Tabellenspalten-Einstellungen]]></item>
+		<item name="wcf.acp.developerTools.database.table.columnSettings.visibleColumns"><![CDATA[Sichtbare Tabellenspalten]]></item>
 		<item name="wcf.acp.developerTools.database.table.list"><![CDATA[Datenbank-Tabellen]]></item>
 		<item name="wcf.acp.developerTools.database.table.name"><![CDATA[Tabelle]]></item>
 		<item name="wcf.acp.developerTools.database.table.row.confirmMessage"><![CDATA[Wollen Sie diesen Datensatz wirklich löschen?]]></item>

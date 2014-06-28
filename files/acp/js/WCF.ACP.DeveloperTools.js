@@ -20,6 +20,12 @@ WCF.ACP.DeveloperTools.DatabaseTable = { };
  */
 WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 	/**
+	 * dialog used for the column settings
+	 * @var	jQuery
+	 */
+	_columnSettingsDialog: null,
+	
+	/**
 	 * data of the columns
 	 * @var	object
 	 */
@@ -30,6 +36,12 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 	 * @var	jQuery
 	 */
 	_dialog: null,
+	
+	/**
+	 * field name of the first column which cannot be hidden
+	 * @var	string
+	 */
+	_firstColumn: null,
 	
 	/**
 	 * action proxy object to update rows
@@ -50,16 +62,26 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 	_tableName: '',
 	
 	/**
+	 * name of the visible columns
+	 * @var	array<string>
+	 */
+	_visibleColumns: [ ],
+	
+	/**
 	 * Initializes a new WCF.ACP.DeveloperTools.DatabaseTable.RowManager object.
 	 * 
 	 * @param	string		tableName
 	 * @param	object		columns
 	 * @param	object		rows
+	 * @param	array<string>	visibleColumns
 	 */
-	init: function(tableName, columns, rows) {
+	init: function(tableName, columns, rows, visibleColumns) {
 		this._tableName = tableName;
 		this._columns = columns;
 		this._rows = rows;
+		this._visibleColumns = visibleColumns;
+		
+		this._toggleColumns();
 		
 		this._proxy = new WCF.Action.Proxy({
 			success: $.proxy(this._success, this),
@@ -67,9 +89,37 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 		});
 		
 		// add event listeners
+		$('.jsRefreshButton').click($.proxy(this._refresh, this));
+		$('.jsColumnSettingsButton').click($.proxy(this._showColumnSettings, this));
 		$('.jsDeleteButton').click($.proxy(this._deleteRow, this));
 		$('.jsEditButton').click($.proxy(this._editRow, this));
 		$('.jsDatabaseTableColumnValueToggle').click($.proxy(this._toggleValue, this));
+	},
+	
+	/**
+	 * Creates the dialog for the column settings.
+	 */
+	_createColumnSettingsDialog: function() {
+		this._columnSettingsDialog = $('<div />').hide().appendTo(document.body);
+		
+		var $fieldset = $('<fieldset />').appendTo(this._columnSettingsDialog);
+		var $formElement = $('<dl />').append($('<dt />').text(WCF.Language.get('wcf.acp.developerTools.database.table.columnSettings.visibleColumns'))).appendTo($fieldset);
+		var $dd = $('<dd />').appendTo($formElement);
+		
+		for (var $field in this._columns) {
+			// the first column cannot be hiiden
+			if (this._firstColumn === null) {
+				this._firstColumn = $field;
+				continue;
+			}
+			
+			var $columnData = this._columns[$field];
+			
+			$dd.append($('<label><input type="checkbox" name="showColumn_' + $field + '"' + (this._visibleColumns.indexOf($field) !== -1 ? ' checked="checked"' : '') + ' /> ' + $field + '</label>'))
+		}
+		
+		var $formSubmit = $('<div class="formSubmit" />').appendTo(this._columnSettingsDialog);
+		$('<button class="buttonPrimary">' + WCF.Language.get('wcf.global.button.submit') + '</button>').click($.proxy(this._updateVisibleColumns, this)).appendTo($formSubmit);
 	},
 	
 	/**
@@ -197,6 +247,20 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 	},
 	
 	/**
+	 * Refreshes the page using the selected visible columns.
+	 */
+	_refresh: function() {
+		// strip old visible columns first
+		var $href = window.location.href.replace(/&columns\[\]=\w+/g, '');
+		
+		for (var $i = 0; $i < this._visibleColumns.length; $i++) {
+			$href += '&columns[]=' + this._visibleColumns[$i];
+		}
+		
+		window.location.href = $href;
+	},
+	
+	/**
 	 * Sets the data in the dialog.
 	 * 
 	 * @param	integer		rowID
@@ -218,6 +282,19 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 		}
 		
 		this._dialog.find('.error').remove();
+	},
+	
+	/**
+	 * Shows the column settings.
+	 */
+	_showColumnSettings: function() {
+		if (this._columnSettingsDialog === null) {
+			this._createColumnSettingsDialog();
+		}
+		
+		this._columnSettingsDialog.wcfDialog({
+			title: WCF.Language.get('wcf.acp.developerTools.database.table.columnSettings')
+		});
 	},
 	
 	/**
@@ -288,6 +365,20 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 	},
 	
 	/**
+	 * Toggles the visibility of the columns.
+	 */
+	_toggleColumns: function(event) {
+		for (var $field in this._columns) {
+			if (this._visibleColumns.indexOf($field) !== -1) {
+				$('th[data-field=' + $field + '], td[data-field=' + $field + ']').show();
+			}
+			else {
+				$('th[data-field=' + $field + '], td[data-field=' + $field + ']').hide();
+			}
+		}
+	},
+	
+	/**
 	 * Handles toggling a value between its original and its truncated value.
 	 * 
 	 * @param	Event		event
@@ -344,5 +435,21 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 				}
 			}
 		}, this));
+	},
+	
+	/**
+	 * Updates the visible columns.
+	 */
+	_updateVisibleColumns: function() {
+		this._visibleColumns = [ this._firstColumn ];
+		this._columnSettingsDialog.find('input[name^=showColumn_]:checked').each($.proxy(function(index, element) {
+			this._visibleColumns.push($(element).attr('name').replace(/showColumn_/, ''));
+		}, this));
+		
+		this._toggleColumns();
+		
+		new WCF.System.Notification().show();
+		
+		this._columnSettingsDialog.wcfDialog('close');
 	}
 });
