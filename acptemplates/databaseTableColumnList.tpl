@@ -26,6 +26,7 @@
 			<tr>
 				<th class="columnTitle columnField">{lang}wcf.acp.developerTools.database.table.column.field{/lang}</th>
 				<th class="columnText columnType">{lang}wcf.acp.developerTools.database.table.column.type{/lang}</th>
+				<th class="columnText columnNull">{lang}wcf.acp.developerTools.database.table.cell.value.null{/lang}</th>
 				
 				{event name='columnHeads'}
 			</tr>
@@ -36,6 +37,7 @@
 				<tr>
 					<td class="columnTitle columnField">{@$column[Field]}</td>
 					<td class="columnText columnType">{@$column[Type]|strtoupper}</td>
+					<td class="columnText columnNull"><span class="icon icon16 icon-{if $column['Null'] == 'YES'}check{else}remove{/if}"></span></td>
 					
 					{event name='columns'}
 				</tr>
