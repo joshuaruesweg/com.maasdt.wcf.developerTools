@@ -66,6 +66,7 @@
 					<tr class="jsRow" data-object-id="{@$rowID}">
 						<td class="columnIcon">
 							<span class="icon icon16 icon-pencil jsEditButton jsTooltip pointer" title="{lang}wcf.global.button.edit{/lang}" data-object-id="{@$rowID}"></span>
+							<span class="icon icon16 icon-remove jsDeleteButton jsTooltip pointer" title="{lang}wcf.global.button.delete{/lang}" data-object-id="{@$rowID}"></span>
 							
 							{event name='rowIcons'}
 						</td>

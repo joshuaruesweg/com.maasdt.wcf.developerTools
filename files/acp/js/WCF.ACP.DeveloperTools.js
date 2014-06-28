@@ -67,6 +67,7 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 		});
 		
 		// add event listeners
+		$('.jsDeleteButton').click($.proxy(this._deleteRow, this));
 		$('.jsEditButton').click($.proxy(this._editRow, this));
 		$('.jsDatabaseTableColumnValueToggle').click($.proxy(this._toggleValue, this));
 	},
@@ -132,6 +133,44 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 		
 		var $formSubmit = $('<div class="formSubmit" />').appendTo(this._dialog);
 		$('<button class="buttonPrimary">' + WCF.Language.get('wcf.global.button.submit') + '</button>').click($.proxy(this._submit, this)).appendTo($formSubmit);
+	},
+	
+	/**
+	 * Handles clicking on an delete icon.
+	 * 
+	 * @param	Event		event
+	 */
+	_deleteRow: function(event) {
+		var $rowID = $(event.currentTarget).data('objectID');
+		if (this._rows[$rowID] === undefined) {
+			console.debug('[WCF.ACP.DeveloperTools.DatabaseTable.RowManager] Unknown row id "' + $rowID + '"');
+			return false;
+		}
+		
+		WCF.System.Confirmation.show(WCF.Language.get('wcf.acp.developerTools.database.table.row.confirmMessage'), $.proxy(function(action) {
+			if (action === 'confirm') {
+				var $rowNullFields = [ ];
+				
+				for (var $field in this._rows[$rowID]) {
+					if (this._rows[$rowID][$field] === null) {
+						$rowNullFields.push($field);
+					}
+				}
+				
+				this._proxy.setOption('data', {
+					actionName: 'deleteRow',
+					className: 'wcf\\system\\developer\\tools\\DatabaseTableDeveloperTools',
+					parameters: {
+						rowData: this._rows[$rowID],
+						rowNullFields: $rowNullFields,
+						tableName: this._tableName
+					}
+				});
+				this._proxy.sendRequest();
+				
+				delete this._rows[$rowID];
+			}
+		}, this));
 	},
 	
 	/**
@@ -238,9 +277,13 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 			this._dialog.wcfDialog('render');
 		}
 		else {
-			this._updateData();
+			new WCF.System.Notification().show();
 			
-			this._dialog.wcfDialog('close');
+			if (this._dialog) {
+				this._dialog.wcfDialog('close');
+			}
+			
+			this._updateData();
 		}
 	},
 	
@@ -275,7 +318,7 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 			var $rowID = $row.data('objectID');
 			
 			if (this._rows[$rowID] === undefined) {
-				$row.remove();
+				$row.wcfBlindOut('up');
 			}
 			else {
 				for (var $field in this._rows[$rowID]) {
