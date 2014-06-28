@@ -8,7 +8,7 @@
 <div class="contentNavigation">
 	<nav>
 		<ul>
-			<li><a href="{link controller='DatabaseTable'}tableName={@$tableName}{/link}" class="button"><span class="icon icon16 icon-list"></span> <span>{lang}wcf.acp.developerTools.database.table.rows{/lang}</span></a></li>
+			<li><a href="{link controller='DatabaseTable'}tableName={@$tableName}{/link}" class="button"><span class="icon icon16 icon-align-justify"></span> <span>{lang}wcf.acp.developerTools.database.table.rows{/lang}</span></a></li>
 			<li><a href="{link controller='DatabaseTableList'}{/link}" class="button"><span class="icon icon16 icon-list"></span> <span>{lang}wcf.acp.menu.link.developerTools.databaseTables{/lang}</span></a></li>
 			
 			{event name='contentNavigationButtonsTop'}
@@ -49,7 +49,7 @@
 <div class="contentNavigation">
 	<nav>
 		<ul>
-			<li><a href="{link controller='DatabaseTable'}tableName={@$tableName}{/link}" class="button"><span class="icon icon16 icon-list"></span> <span>{lang}wcf.acp.developerTools.database.table.rows{/lang}</span></a></li>
+			<li><a href="{link controller='DatabaseTable'}tableName={@$tableName}{/link}" class="button"><span class="icon icon16 icon-align-justify"></span> <span>{lang}wcf.acp.developerTools.database.table.rows{/lang}</span></a></li>
 			<li><a href="{link controller='DatabaseTableList'}{/link}" class="button"><span class="icon icon16 icon-list"></span> <span>{lang}wcf.acp.menu.link.developerTools.databaseTables{/lang}</span></a></li>
 			
 			{event name='contentNavigationButtonsBottom'}
