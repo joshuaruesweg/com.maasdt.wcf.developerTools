@@ -63,25 +63,25 @@
 			
 			<tbody>
 				{foreach from=$rows key='rowID' item='row'}
-					<tr>
+					<tr class="jsRow" data-object-id="{@$rowID}">
 						<td class="columnIcon">
 							<span class="icon icon16 icon-pencil jsEditButton jsTooltip pointer" title="{lang}wcf.global.button.edit{/lang}" data-object-id="{@$rowID}"></span>
 							
 							{event name='rowIcons'}
 						</td>
 						{foreach from=$columns item='column'}
-							<td class="columnText column{@$column[Field]|ucfirst}">
-								{if $column[Type]|substr:-4 == 'text'}
+							<td class="columnText column{@$column[Field]|ucfirst}" data-field="{@$column[Field]}">
+								{if $row[$column[Field]] === null}
+									<em>{lang}wcf.acp.developerTools.database.table.cell.value.null{/lang}</em>
+								{elseif $column[Type]|substr:-4 == 'text'}
 									{assign var='__truncatedValue' value=$row[$column[Field]]|truncate}
 									{if $row[$column[Field]] != $__truncatedValue}
 										<span class="jsDatabaseTableColumnValueToggle pointer" data-value="{$row[$column[Field]]|encodeJS}" data-truncated-value="{$__truncatedValue|encodeJS}">{$__truncatedValue}</span>
 									{else}
-										{$row[$column[Field]]}
+										<span>{$row[$column[Field]]}</span>
 									{/if}
-								{elseif $row[$column[Field]] === null}
-									<em>{lang}wcf.acp.developerTools.database.table.cell.value.null{/lang}</em>
 								{else}
-									{$row[$column[Field]]}
+									<span>{$row[$column[Field]]}</span>
 								{/if}
 							</td>
 						{/foreach}

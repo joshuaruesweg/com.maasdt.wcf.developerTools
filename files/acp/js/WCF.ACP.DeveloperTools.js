@@ -189,6 +189,7 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 		var $oldNullFields = [ ];
 		var $newData = { };
 		var $newNullFields = [ ];
+		var $rowData = { };
 		
 		for (var $field in $oldData) {
 			if ($oldData[$field] === null) {
@@ -197,12 +198,18 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 		}
 		
 		for (var $field in this._columns) {
+			$newData[$field] = this._dialog.find('[name=column_' + $field + ']').val();
+			
 			if (this._columns[$field]['Null'] === 'YES' && this._dialog.find('[name=column_' + $field + '_null]').is(':checked')) {
 				$newNullFields.push($field);
+				$rowData[$field] = null;
 			}
-			
-			$newData[$field] = this._dialog.find('[name=column_' + $field + ']').val();
+			else {
+				$rowData[$field] = $newData[$field];
+			}
 		}
+		
+		this._rows[this._dialog.data('rowID')] = $rowData;
 		
 		this._proxy.setOption('data', {
 			actionName: 'updateRow',
@@ -231,11 +238,9 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 			this._dialog.wcfDialog('render');
 		}
 		else {
-			this._dialog.wcfDialog('close');
+			this._updateData();
 			
-			new WCF.System.Notification().show(function() {
-				window.location.reload();
-			});
+			this._dialog.wcfDialog('close');
 		}
 	},
 	
@@ -259,5 +264,42 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 		else {
 			$toggle.text($toggle.data('truncatedValue'));
 		}
+	},
+	
+	/**
+	 * Updates the data of the displayed table.
+	 */
+	_updateData: function() {
+		$('.jsRow').each($.proxy(function(index, element) {
+			var $row = $(element);
+			var $rowID = $row.data('objectID');
+			
+			if (this._rows[$rowID] === undefined) {
+				$row.remove();
+			}
+			else {
+				for (var $field in this._rows[$rowID]) {
+					var $value = this._rows[$rowID][$field];
+					var $valueElement = $row.find('[data-field=' + $field + ']').children();
+					
+					if ($value === null) {
+						$valueElement.replaceWith($('<em />').text(WCF.Language.get('wcf.acp.developerTools.database.table.cell.value.null')));
+					}
+					else if (this._columns[$field].Type.substr(-4) === 'text') {
+						if ($value !== $value.substr(0, 80)) {
+							var $replacement = $('<span class="jsDatabaseTableColumnValueToggle pointer" />').click($.proxy(this._toggleValue, this)).data('value', $value).html($value.substr(0, 80) + '&hellip;');
+							$replacement.data('truncatedValue', $replacement.html());
+							$valueElement.replaceWith($replacement);
+						}
+						else {
+							$valueElement.replaceWith($('<span />').text($value));
+						}
+					}
+					else {
+						$valueElement.replaceWith($('<span />').text($value));
+					}
+				}
+			}
+		}, this));
 	}
 });
