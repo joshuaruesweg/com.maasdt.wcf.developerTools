@@ -119,7 +119,7 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 				$inputElement.disable();
 				
 				$dd.find('input[name=column_' + $field + '_null]').change(function() {
-					var $inputElement = $('input[name=' + $(this).attr('name').replace(/_null$/, '') + ']');
+					var $inputElement = $('[name=' + $(this).attr('name').replace(/_null$/, '') + ']');
 					if ($(this).is(':checked')) {
 						$inputElement.disable();
 					}
