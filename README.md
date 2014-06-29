@@ -12,7 +12,7 @@ Features
 --------
 
 * **Language Diff**: Compare two installed languages to find missing language items.
-* **Database Tables**: Easy access to WCF' database tables (list of tables, list of tables' columns, list of tables' row with possibility to edit and delete rows).
+* **Database Tables**: Easy access to WCF's database tables (list of tables, list of tables' columns, list of tables' rows with possibility to edit and delete rows).
 
 **As the database tables feature circumvents many acp permissions (you can delete a user, even yourself, without having to have the explicit permission to delete users), do not use this package in a productive environment!**
 
