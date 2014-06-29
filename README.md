@@ -8,6 +8,14 @@ Developer Tools provides helpful tools for developers.
 If you want to use this package and want to extend it by a plugin, fell free to do so, but do be warned that the API might change without further notice.
 
 
+Features
+--------
+
+* **Language Diff**: Compare two installed languages to find missing language items.
+* **Database Tables**: Easy access to WCF' database tables (list of tables, list of tables' columns, list of tables' row with possibility to edit and delete rows).
+
+**As the database tables feature circumvents many acp permissions (you can delete a user, even yourself, without having to have the explicit permission to delete users), do not use this package in a productive environment!**
+
 License
 -------
 
