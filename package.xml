@@ -2,8 +2,9 @@
 <package name="com.maasdt.wcf.developerTools" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/package.xsd">
 	<packageinformation>
 		<packagename>Developer Tools</packagename>
+		<packagename language="de"><![CDATA[Entwickler-Werkzeuge]]></packagename>
 		<packagedescription><![CDATA[Helpful tools for developers]]></packagedescription>
-		<packagedescription language="de"><![CDATA[Hilfreiche Tools für Entwickler]]></packagedescription>
+		<packagedescription language="de"><![CDATA[Hilfreiche Werkzeuge für Entwickler]]></packagedescription>
 		<version>1.0.0 Alpha 1</version>
 		<date>2014-06-27</date>
 	</packageinformation>
