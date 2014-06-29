@@ -16,6 +16,78 @@ WCF.ACP.DeveloperTools = { };
 WCF.ACP.DeveloperTools.DatabaseTable = { };
 
 /**
+ * Handles the columns of a database table.
+ */
+WCF.ACP.DeveloperTools.DatabaseTable.ColumnManager = Class.extend({
+	/**
+	 * action proxy object to manipulate columns
+	 * @var	WCF.Action.Proxy
+	 */
+	_proxy: null,
+	
+	/**
+	 * name of the table the handled columns belong to
+	 * @var	string
+	 */
+	_tableName: '',
+	
+	/**
+	 * Initializes a new WCF.ACP.DeveloperTools.DatabaseTable.ColumnManager object.
+	 * 
+	 * @param	string		tableName
+	 */
+	init: function(tableName) {
+		this._tableName = tableName;
+		
+		this._proxy = new WCF.Action.Proxy({
+			success: $.proxy(this._success, this),
+			url: 'index.php/AJAXInvoke/?t=' + SECURITY_TOKEN + SID_ARG_2ND
+		});
+		
+		// add event listeners
+		$('.jsDeleteButton').click($.proxy(this._deleteColumn, this));
+	},
+	
+	/**
+	 * Handles clicking on an delete icon.
+	 * 
+	 * @param	Event		event
+	 */
+	_deleteColumn: function(event) {
+		WCF.System.Confirmation.show(WCF.Language.get('wcf.acp.developerTools.database.table.column.delete.confirmMessage'), $.proxy(function(action) {
+			if (action === 'confirm') {
+				this._proxy.setOption('data', {
+					actionName: 'deleteColumn',
+					className: 'wcf\\system\\developer\\tools\\DatabaseTableDeveloperTools',
+					parameters: {
+						column: $(event.currentTarget).data('column'),
+						tableName: this._tableName
+					}
+				});
+				this._proxy.sendRequest();
+			}
+		}, this));
+	},
+	
+	/**
+	 * Handles successful AJAX requests.
+	 * 
+	 * @param	object		data
+	 * @param	string		textStatus
+	 * @param	jQuery		jqXHR
+	 */
+	_success: function(data, textStatus, jqXHR) {
+		switch (data.actionName) {
+			case 'deleteColumn':
+				$('.jsDeleteButton[data-column=' + data.column + ']').parents('tr').wcfBlindOut('up');
+			break;
+		}
+		
+		new WCF.System.Notification().show();
+	},
+});
+
+/**
  * Handles the rows of a database table.
  */
 WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
@@ -44,7 +116,7 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 	_firstColumn: null,
 	
 	/**
-	 * action proxy object to update rows
+	 * action proxy object to manipulate rows
 	 * @var	WCF.Action.Proxy
 	 */
 	_proxy: null,

@@ -3,6 +3,7 @@
 	<category name="wcf.acp.developerTools">
 		<item name="wcf.acp.developerTools.database.table"><![CDATA[Database Table]]></item>
 		<item name="wcf.acp.developerTools.database.table.cell.value.null"><![CDATA[NULL]]></item>
+		<item name="wcf.acp.developerTools.database.table.column.delete.confirmMessage"><![CDATA[Do you really want to delete this column?]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.field"><![CDATA[Column]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.list"><![CDATA[Table Columns]]></item>
 		<item name="wcf.acp.developerTools.database.table.column.list.title"><![CDATA[Columns - {$tableName} - Database Tables]]></item>

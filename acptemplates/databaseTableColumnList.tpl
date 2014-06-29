@@ -1,5 +1,18 @@
 {include file='header' pageTitle='wcf.acp.developerTools.database.table.column.list.title'}
 
+<script data-relocate="true" src="{@$__wcf->getPath()}acp/js/WCF.ACP.DeveloperTools.js"></script>
+<script data-relocate="true">
+	//<![CDATA[
+	$(function() {
+		WCF.Language.addObject({
+			'wcf.acp.developerTools.database.table.column.delete.confirmMessage': '{lang}wcf.acp.developerTools.database.table.column.delete.confirmMessage{/lang}'
+		});
+		
+		new WCF.ACP.DeveloperTools.DatabaseTable.ColumnManager('{@$tableName}');
+	});
+	//]]>
+</script>
+
 <header class="boxHeadline">
 	<h1>{lang}wcf.acp.developerTools.database.table.column.list{/lang}</h1>
 	<h2>{$tableName}</h2>
@@ -24,7 +37,7 @@
 	<table id="columnsTable" class="table">
 		<thead>
 			<tr>
-				<th class="columnTitle columnField">{lang}wcf.acp.developerTools.database.table.column.field{/lang}</th>
+				<th class="columnTitle columnField" colspan="2">{lang}wcf.acp.developerTools.database.table.column.field{/lang}</th>
 				<th class="columnText columnType">{lang}wcf.acp.developerTools.database.table.column.type{/lang}</th>
 				<th class="columnText columnNull">{lang}wcf.acp.developerTools.database.table.cell.value.null{/lang}</th>
 				
@@ -35,6 +48,11 @@
 		<tbody>
 			{foreach from=$columns item='column'}
 				<tr>
+					<td class="columnIcon">
+						<span class="icon icon16 icon-remove jsDeleteButton jsTooltip pointer" title="{lang}wcf.global.button.delete{/lang}" data-column="{@$column[Field]}"></span>
+						
+						{event name='rowIcons'}
+					</td>
 					<td class="columnTitle columnField">{@$column[Field]}</td>
 					<td class="columnText columnType">{@$column[Type]|strtoupper}</td>
 					<td class="columnText columnNull"><span class="icon icon16 icon-{if $column['Null'] == 'YES'}check{else}remove{/if}"></span></td>

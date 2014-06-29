@@ -35,7 +35,41 @@ class DatabaseTableDeveloperTools extends SingletonFactory implements IAJAXInvok
 	 * list of methods allowed for remote invoke
 	 * @var	array<string>
 	 */
-	public static $allowInvoke = array('deleteRow', 'updateRow');
+	public static $allowInvoke = array('deleteColumn', 'deleteRow', 'updateRow');
+	
+	/**
+	 * Deletes a column.
+	 * 
+	 * Note: Only drops the column, does not remove the column from wcf1_package_installation_sql_log
+	 * if it was added by a plugin.
+	 */
+	public function deleteColumn() {
+		WCF::getSession()->checkPermissions(array('admin.general.canUseAcp'));
+		
+		// read data
+		$column = '';
+		if (isset($_POST['parameters']['column'])) $column = StringUtil::trim($_POST['parameters']['column']);
+		if (isset($_POST['parameters']['tableName'])) $this->tableName = StringUtil::trim($_POST['parameters']['tableName']);
+		
+		// validate table name and read columns
+		$this->validateTableName();
+		$this->readTableColumns();
+		
+		// validate column
+		if (!in_array($column, $this->columns)) {
+			throw new UserInputException('column');
+		}
+		
+		$sql = "ALTER TABLE	".WCF::getDB()->escapeString($this->tableName)."
+			DROP COLUMN	".WCF::getDB()->escapeString($column);
+		$statement = WCF::getDB()->prepareStatement($sql);
+		$statement->execute();
+		
+		return array(
+			'actionName' => 'deleteColumn',
+			'column' => $column
+		);
+	}
 	
 	/**
 	 * Deletes a row.
@@ -43,10 +77,9 @@ class DatabaseTableDeveloperTools extends SingletonFactory implements IAJAXInvok
 	public function deleteRow() {
 		WCF::getSession()->checkPermissions(array('admin.general.canUseAcp'));
 		
+		// read data
 		$rowData = $tableName = null;
 		$rowNullFields = array();
-		
-		// read data
 		if (isset($_POST['parameters']['rowData']) && is_array($_POST['parameters']['rowData'])) $rowData = $_POST['parameters']['rowData'];
 		if (isset($_POST['parameters']['rowNullFields']) && is_array($_POST['parameters']['rowNullFields'])) $rowNullFields = $_POST['parameters']['rowNullFields'];
 		if (isset($_POST['parameters']['tableName'])) $this->tableName = StringUtil::trim($_POST['parameters']['tableName']);
