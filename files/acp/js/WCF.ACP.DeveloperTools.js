@@ -197,7 +197,7 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 			return false;
 		}
 		
-		WCF.System.Confirmation.show(WCF.Language.get('wcf.acp.developerTools.database.table.row.confirmMessage'), $.proxy(function(action) {
+		WCF.System.Confirmation.show(WCF.Language.get('wcf.acp.developerTools.database.table.row.delete.confirmMessage'), $.proxy(function(action) {
 			if (action === 'confirm') {
 				var $rowNullFields = [ ];
 				

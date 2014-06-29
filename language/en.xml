@@ -11,7 +11,7 @@
 		<item name="wcf.acp.developerTools.database.table.columnSettings.visibleColumns"><![CDATA[Visible Table Columns]]></item>
 		<item name="wcf.acp.developerTools.database.table.list"><![CDATA[Database Tables]]></item>
 		<item name="wcf.acp.developerTools.database.table.name"><![CDATA[Table]]></item>
-		<item name="wcf.acp.developerTools.database.table.row.confirmMessage"><![CDATA[Do you really want to delete this row?]]></item>
+		<item name="wcf.acp.developerTools.database.table.row.delete.confirmMessage"><![CDATA[Do you really want to delete this row?]]></item>
 		<item name="wcf.acp.developerTools.database.table.row.edit"><![CDATA[Edit Row]]></item>
 		<item name="wcf.acp.developerTools.database.table.row.list"><![CDATA[Rows]]></item>
 		<item name="wcf.acp.developerTools.database.table.rows"><![CDATA[Rows]]></item>

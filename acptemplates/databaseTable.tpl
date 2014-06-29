@@ -9,6 +9,7 @@
 				'wcf.acp.developerTools.database.table.columnSettings': '{lang}wcf.acp.developerTools.database.table.columnSettings{/lang}',
 				'wcf.acp.developerTools.database.table.columnSettings.visibleColumns': '{lang}wcf.acp.developerTools.database.table.columnSettings.visibleColumns{/lang}',
 				'wcf.acp.developerTools.database.table.cell.value.null': '{lang}wcf.acp.developerTools.database.table.cell.value.null{/lang}',
+				'wcf.acp.developerTools.database.table.row.delete.confirmMessage': '{lang}wcf.acp.developerTools.database.table.row.delete.confirmMessage{/lang}',
 				'wcf.acp.developerTools.database.table.row.edit': '{lang}wcf.acp.developerTools.database.table.row.edit{/lang}'
 			});
 			

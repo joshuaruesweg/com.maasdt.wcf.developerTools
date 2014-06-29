@@ -11,7 +11,7 @@
 		<item name="wcf.acp.developerTools.database.table.columnSettings.visibleColumns"><![CDATA[Sichtbare Tabellenspalten]]></item>
 		<item name="wcf.acp.developerTools.database.table.list"><![CDATA[Datenbank-Tabellen]]></item>
 		<item name="wcf.acp.developerTools.database.table.name"><![CDATA[Tabelle]]></item>
-		<item name="wcf.acp.developerTools.database.table.row.confirmMessage"><![CDATA[Wollen Sie diesen Datensatz wirklich löschen?]]></item>
+		<item name="wcf.acp.developerTools.database.table.row.delete.confirmMessage"><![CDATA[Wollen Sie diesen Datensatz wirklich löschen?]]></item>
 		<item name="wcf.acp.developerTools.database.table.row.edit"><![CDATA[Datensatz bearbeiten]]></item>
 		<item name="wcf.acp.developerTools.database.table.row.list"><![CDATA[Datensätze]]></item>
 		<item name="wcf.acp.developerTools.database.table.rows"><![CDATA[Datensätze]]></item>
