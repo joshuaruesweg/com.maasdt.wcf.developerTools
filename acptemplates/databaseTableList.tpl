@@ -5,11 +5,15 @@
 </header>
 
 <div class="contentNavigation">
-	<nav>
-		<ul>
-			{event name='contentNavigationButtonsTop'}
-		</ul>
-	</nav>
+	{hascontent}
+		<nav>
+			<ul>
+				{content}
+					{event name='contentNavigationButtonsTop'}
+				{/content}
+			</ul>
+		</nav>
+	{/hascontent}
 </div>
 
 <div class="tabularBox tabularBoxTitle marginTop">
@@ -46,11 +50,15 @@
 </div>
 
 <div class="contentNavigation">
-	<nav>
-		<ul>
-			{event name='contentNavigationButtonsBottom'}
-		</ul>
-	</nav>
+	{hascontent}
+		<nav>
+			<ul>
+				{content}
+					{event name='contentNavigationButtonsBottom'}
+				{/content}
+			</ul>
+		</nav>
+	{/hascontent}
 </div>
 
 {include file='footer'}

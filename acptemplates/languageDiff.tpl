@@ -7,11 +7,15 @@
 {include file='formError'}
 
 <div class="contentNavigation">
-	<nav>
-		<ul>
-			{event name='contentNavigationButtons'}
-		</ul>
-	</nav>
+	{hascontent}
+		<nav>
+			<ul>
+				{content}
+					{event name='contentNavigationButtons'}
+				{/content}
+			</ul>
+		</nav>
+	{/hascontent}
 </div>
 
 {if $languages|count > 1}
