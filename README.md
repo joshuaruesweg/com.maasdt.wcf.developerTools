@@ -19,7 +19,7 @@ Easy access to WCF's database tables:
 
 * list of tables
 * list of tables' columns with possibility to delete columns
-* list of tables' rows possibility to edit and delete rows
+* list of tables' rows with possibility to edit and delete rows
 
 **As the database tables feature circumvents many acp permissions (you can delete a user, even yourself, without having to have the explicit permission to delete users), do not use this package in a productive environment!**
 
