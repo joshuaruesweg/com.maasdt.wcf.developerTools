@@ -153,6 +153,14 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 		this._rows = rows;
 		this._visibleColumns = visibleColumns;
 		
+		// unescape HTML in field values
+		for (var $rowID in this._rows) {
+			var $row = this._rows[$rowID];
+			for (var $field in $row) {
+				this._rows[$rowID][$field] = WCF.String.unescapeHTML($row[$field]);
+			}
+		}
+		
 		this._toggleColumns();
 		
 		this._proxy = new WCF.Action.Proxy({
