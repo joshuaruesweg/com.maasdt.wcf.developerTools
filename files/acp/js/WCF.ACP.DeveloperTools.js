@@ -157,7 +157,9 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 		for (var $rowID in this._rows) {
 			var $row = this._rows[$rowID];
 			for (var $field in $row) {
-				this._rows[$rowID][$field] = WCF.String.unescapeHTML($row[$field]);
+				if ($row[$field] !== null) {
+					this._rows[$rowID][$field] = WCF.String.unescapeHTML($row[$field]);
+				}
 			}
 		}
 		
