@@ -189,7 +189,7 @@ WCF.ACP.DeveloperTools.DatabaseTable.RowManager = Class.extend({
 		var $dd = $('<dd />').appendTo($formElement);
 		
 		for (var $field in this._columns) {
-			// the first column cannot be hiiden
+			// the first column cannot be hidden
 			if (this._firstColumn === null) {
 				this._firstColumn = $field;
 				continue;
