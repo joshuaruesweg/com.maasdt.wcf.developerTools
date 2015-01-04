@@ -6,6 +6,8 @@ Developer Tools provides helpful tools for developers.
 
 If you want to use this package and want to extend it by a plugin, fell free to do so, but do be warned that the API might change without further notice.
 
+**This package is not maintained anymore!**
+
 
 ## Features
 
